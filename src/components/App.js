@@ -1,41 +1,25 @@
-import React, { useState } from "react";
-import Question from "./Question";
-import quiz from "../data/quiz";
+import React, { useState } from 'react';
+import Question from './Question'; // Assuming Question.js is in the same directory
 
-function App() {
-  const [questions, setQuestions] = useState(quiz);
-  const [currentQuestionId, setCurrentQuestion] = useState(1);
-  const [score, setScore] = useState(0);
-  const currentQuestion = questions.find((q) => q.id === currentQuestionId);
+const App = () => {
+  const [answered, setAnswered] = useState(false);
 
-  function handleQuestionAnswered(correct) {
-    if (currentQuestionId < questions.length) {
-      setCurrentQuestion((currentQuestionId) => currentQuestionId + 1);
-    } else {
-      setCurrentQuestion(null);
-    }
-    if (correct) {
-      setScore((score) => score + 1);
-    }
-  }
+  const handleAnswered = (isCorrect) => {
+    // Handle the answer logic here
+    console.log(isCorrect ? 'Correct!' : 'Incorrect!');
+    setAnswered(true);
+  };
 
   return (
-    <main>
-      <section>
-        {currentQuestion ? (
-          <Question
-            question={currentQuestion}
-            onAnswered={handleQuestionAnswered}
-          />
-        ) : (
-          <>
-            <h1>Game Over</h1>
-            <h2>Total Correct: {score}</h2>
-          </>
-        )}
-      </section>
-    </main>
+    <div>
+      <h1>Trivia App</h1>
+      <Question
+        question="What is the capital of France?"
+        answers={['Paris', 'London', 'Berlin']}
+        onAnswered={handleAnswered}
+      />
+    </div>
   );
-}
+};
 
 export default App;
